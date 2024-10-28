@@ -1,0 +1,25 @@
+services:
+  database:
+    build: 
+      context: ./database
+      dockerfile: Dockerfile
+    restart: always
+    container_name: database 
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - ./database/data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - flor-da-cidade-network
+
+networks:
+  flor-da-cidade-network:
+    driver: bridge
