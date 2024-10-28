@@ -21,6 +21,7 @@ services:
       - flor-da-cidade-network
 
   api:
+    container_name: api
     depends_on:
       - database
     build:
@@ -32,6 +33,18 @@ services:
       - flor-da-cidade-network
     volumes:
       - ./api:/app
+
+  web:
+    container_name: web
+    depends_on:
+      - database
+    build:
+      context: ./web 
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./web:/app
 
 networks:
   flor-da-cidade-network:
