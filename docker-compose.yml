@@ -45,6 +45,20 @@ services:
       - "4200:4200"
     volumes:
       - ./web:/app
+    
+  phpAdmin:
+    container_name: phpAdmin
+    depends_on:
+      - database 
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: database 
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 8081:80 
+    networks:
+      - flor-da-cidade-network
 
 networks:
   flor-da-cidade-network:
