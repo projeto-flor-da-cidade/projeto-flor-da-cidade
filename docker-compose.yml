@@ -20,6 +20,19 @@ services:
     networks:
       - flor-da-cidade-network
 
+  api:
+    depends_on:
+      - database
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - flor-da-cidade-network
+    volumes:
+      - ./api:/app
+
 networks:
   flor-da-cidade-network:
     driver: bridge
